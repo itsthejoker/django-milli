@@ -38,9 +38,7 @@ However, remember that just shoving those IDs into Django will result in an _uno
 
 You will need the Rust toolchain -- [get the command from here](https://www.rust-lang.org/tools/install)! Installing with `pip` looks like this:
 
-```shell
-pip install django-milli
-```
+~~pip install django-milli~~ Until `milli-py 1.0.1` is released, you can only get this from GitHub releases due to security restrictions on PyPI preventing listing dependencies that are on GitHub. Sorry!
 
 NOTE: You _may_ have issues installing this with Poetry due to a bug where git submodules aren't parsed correctly. A proposed fix has been added and should be released in Poetry 1.4.2 (we are on 1.4.1 as of this writing).
 
