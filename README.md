@@ -81,7 +81,7 @@ Makes it so that your `fields` list automatically includes the `id` attribute fr
 
 Default: `False`
 
-For the handful of times where Milli might put something in your logs, you can disable it entirelly by setting this to `True`.
+For the handful of times where Milli might put something in your logs, you can disable it entirely by setting this to `True`.
 
 ## Middleware
 
