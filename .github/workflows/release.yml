@@ -11,7 +11,15 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v2
+    # Start by getting the version number we originally had
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
+    - run: git checkout HEAD^
+    - name: Get version number
+      run: echo """OLD_VERSION=$(cat setup.py | grep "version=" | cut -d '"' -f2)""" >> $GITHUB_ENV
+    - run: git checkout HEAD  # checkout current commit
+    - run: echo """CURRENT_VERSION=$(cat setup.py | grep "version=" | cut -d '"' -f2)""" >> $GITHUB_ENV
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11.x'
@@ -20,12 +28,11 @@ jobs:
         pip install --upgrade pip
         sudo apt-get install make
         pip install build setuptools wheel twine
-    - name: Get version number
-      run: echo """CURRENT_VERSION=$(cat setup.py | grep "version=" | cut -d '"' -f2)""" >> $GITHUB_ENV
     - name: Build the sucker
       run: |
         make build
     - uses: ncipollo/release-action@v1
+      if: ${{ env.CURRENT_VERSION }} > ${{ env.OLD_VERSION }}
       with:
         artifacts: "dist/*"
         body: "It's releasin' time"
