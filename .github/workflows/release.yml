@@ -19,6 +19,7 @@ jobs:
       run: |
         pip install --upgrade pip
         sudo apt-get install make
+        pip install build setuptools wheel twine
     - name: Get version number
       run: echo "CURRENT_VERSION=cat setup.py | grep \"version=\" | cut -d '\"' -f2" >> $GITHUB_ENV
     - name: Build the sucker
