@@ -1,0 +1,7 @@
+data.mdb
+db.sqlite3
+lock.mdb
+*.egg-info
+build
+dist
+.venv

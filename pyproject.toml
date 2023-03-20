@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "django-milli"
+version = "0.1.0"
+description = "An installable app for Milli, the incredibly fast search engine core."
+authors = ["Joe Kaufeld <opensource@joekaufeld.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "django_milli"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.1.7"
+# This doesn't work because Poetry doesn't resolve the submodules correctly;
+# waiting on https://github.com/python-poetry/poetry/pull/7017
+# Install with `pip install git+https://github.com/AlexAltea/milli-py`
+# milli = {git = "https://github.com/AlexAltea/milli-py"}
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+ruff = "^0.0.257"
+build = "^0.10.0"
+twine = "^4.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
