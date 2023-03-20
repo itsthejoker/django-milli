@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django_milli",
-    version="0.1.0",
+    version="0.1.1",
     url='https://github.com/itsthejoker/django-milli',
     include_package_data=True,
     license="Apache 2.0",
@@ -20,8 +20,8 @@ setup(
     author_email="opensource@joekaufeld.com",
     packages=["django_milli"],
     install_requires=[
-        "django>=3.2",
-        "some-pkg @ git+https://git@github.com/AlexAltea/milli-py",
+        "django>=4.0",
+        "milli @ git+https://git@github.com/AlexAltea/milli-py",
     ],
     classifiers=[
         "Environment :: Web Environment",
