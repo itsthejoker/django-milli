@@ -16,14 +16,16 @@ jobs:
       with:
         fetch-depth: 2
     - run: git checkout HEAD^
-    - name: Get version number
+    - name: Get old version number
       run: | 
-        echo """OLD_TAG=$(cat setup.py | grep "version=" | cut -d '"' -f2)""" >> $GITHUB_ENV
-        echo "OLD_VERSION=$(echo ${{env.OLD_TAG}} | tr -dc '0-9')" >> $GITHUB_ENV
+        echo """OLD_VERSION=$(cat setup.py | grep "version=" | cut -d '"' -f2 | tr -dc '0-9')""" >> $GITHUB_ENV
     - run: git checkout HEAD  # checkout current commit
     - run: |
-        echo """CURRENT_TAG=$(cat setup.py | grep "version=" | cut -d '"' -f2)""" >> $GITHUB_ENV
-        echo "CURRENT_VERSION=$(echo ${{env.CURRENT_TAG}} | tr -dc '0-9')" >> $GITHUB_ENV
+        echo """CURRENT_VERSION=$(cat setup.py | grep "version=" | cut -d '"' -f2 | tr -dc '0-9')""" >> $GITHUB_ENV
+    - name: Get numbers for   M A T H
+      run: |
+        echo "OLD_NUMBER=$echo$((${{env.OLD_VERSION}} - 0 ))" >> $GITHUB_ENV
+        echo "CURRENT_NUMBER=$echo$((${{env.CURRENT_VERSION}} - 0 ))" >> $GITHUB_ENV
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11.x'
@@ -36,7 +38,7 @@ jobs:
       run: |
         make build
     - uses: ncipollo/release-action@v1
-      if: (( ${{ env.CURRENT_VERSION }} > ${{ env.OLD_VERSION }} ))
+      if: (( ${{ env.CURRENT_NUMBER }} > ${{ env.OLD_NUMBER }} ))
       with:
         artifacts: "dist/*"
         body: "It's releasin' time"
